@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/radifan9/weeklytask-w8/internal/area"
 	"github.com/radifan9/weeklytask-w8/internal/process"
 	"github.com/radifan9/weeklytask-w8/internal/utils"
 )
@@ -18,7 +19,11 @@ func main() {
 	// runWebFetcher()
 
 	// --- --- No 3 --- ---
-	runUserManager()
+	// runUserManager()
+
+	// --- --- No 4 --- ---
+	runGeometricCalc()
+
 }
 
 func runProcessNumber() {
@@ -109,4 +114,13 @@ func runUserManager() {
 	fmt.Println("--- --- Getting the User Test --- ---")
 	handleUserGetter(&usersDB, "01")
 	handleUserGetter(&usersDB, "04")
+}
+
+func runGeometricCalc() {
+	rec1 := area.NewRectangle(10, 20)
+	rec2 := area.NewRectangle(5, 10)
+	circle1 := area.NewCircle(21)
+
+	area.Calculator(rec1, rec2, circle1)
+
 }
