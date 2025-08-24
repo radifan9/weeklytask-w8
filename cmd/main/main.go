@@ -15,7 +15,10 @@ func main() {
 	// runProcessNumber()
 
 	// --- --- No 2 --- ---
-	runWebFetcher()
+	// runWebFetcher()
+
+	// --- --- No 3 --- ---
+	runUserManager()
 }
 
 func runProcessNumber() {
@@ -71,5 +74,39 @@ func runWebFetcher() {
 	fetchingWg.Wait()
 	close(resultsChan)
 	consumerWg.Wait()
+}
 
+func handleUserAddition(usersDB *utils.UserManager, id, name string) {
+	success, err := usersDB.AddUser(id, name)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println(success)
+	}
+}
+
+func handleUserGetter(usersDB *utils.UserManager, id string) {
+	success, err := usersDB.GetUser(id)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println(success)
+	}
+}
+
+func runUserManager() {
+	// Initialize UserManager instance
+	usersDB := utils.NewUserManager()
+
+	// User creation test cases
+	fmt.Println("--- --- Setting the User Test --- ---")
+	handleUserAddition(&usersDB, "01", "Radif")
+	handleUserAddition(&usersDB, "02", "Opet")
+	handleUserAddition(&usersDB, "03", "Yusuf")
+	handleUserAddition(&usersDB, "01", "Radif")
+
+	// User retrieval test cases
+	fmt.Println("--- --- Getting the User Test --- ---")
+	handleUserGetter(&usersDB, "01")
+	handleUserGetter(&usersDB, "04")
 }
